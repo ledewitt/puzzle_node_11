@@ -1,0 +1,210 @@
+Here is how I am going to attempt to solve puzzle node 11.
+
+Given a super simple cave input lets say this
+
+-----
+12
+
+############
+~          #
+#    ##    #
+############
+-----
+
+Not being familiar with Ruby's class libraries and what the capabilities of them the following is just a logical framework that I will try to implement as I learn Ruby.
+
+First I want to save the number of steps in the input file and then I will want to save the cave in some kind of Matrix format so there is a way to map to a dimensional system (matrix or nested arrays works for this).
+
+Steps = 12
+
+and I have an array system that has this cave inputed with the up left hand corner labeled (0,0) for starters.
+
+
+     
+ (0,0)-> ############
+         ~          #
+         #    ##    #
+         ############
+
+Then an array is created that will map water depth in the cave and zeros are put in each entry of this array.
+
+water_depth[            ]
+            ############
+            ~          #
+            #    ##    #
+            ############
+
+The program will then search the matrix to find the ~ starting point of the water and increment that entry of the array by one for its depth.  This is done only once as the program starts the rest of the increments will be done with an algorithmic logic that follows.
+
+water_depth[1           ]
+            ############
+            ~          #
+            #    ##    #
+            ############
+
+The water wants to travel downward first if there is a hash mark or tilde below its current location in the cave matrix it will then want to flow to the right if this spot contains a hash mark it will be unable to travel either way it wants to at this point the algorithm executes an upward 'carriage return' where it climbs one row up the cave matrix and as far left as it needs to to be one space in front of another another tilde.  All of these moves result in an increase of the water_depth array in column that the ~ has the ability to populate.
+
+So:
+
+1st -           ~
+                ~
+
+Can I populate downward(yes) increment this columns index in water_depth[]
+
+2nd -           ~~
+                ##
+
+Can I populate downward(no) -> Can I populate rightward(yes)
+increment this newly populated columns index in water_depth[]
+
+3rd -           ~~
+                #~+
+                #~~~~#
+                ######
+
+Can I populate downward(no) -> Can I populate rightward (no)
+-> upward_carriage_return "results in placing a tilde where the + is in diagram"
+
+Increment the column of the newly placed tilde in water_depth[]
+
+After each of the water moves decrement steps variable do until steps is zero.
+
+------
+
+How this works one Step at a time in my above sample cave works like this:
+
+Initial position
+
+water_depth[100000000000]
+            ############
+            ~          #
+            #    ##    #
+            ############
+
+Steps = 12
+
+--
+
+water_depth[110000000000]
+            ############
+            ~~         #
+            #    ##    #
+            ############
+
+Steps = 11
+
+--
+
+water_depth[120000000000]
+            ############
+            ~~         #
+            #~   ##    #
+            ############
+
+Steps = 10
+
+--
+
+water_depth[121000000000]
+            ############
+            ~~         #
+            #~~  ##    #
+            ############
+
+Steps = 9
+
+--
+
+water_depth[121100000000]
+            ############
+            ~~         #
+            #~~~ ##    #
+            ############
+
+Steps = 8
+
+--
+
+water_depth[121110000000]
+            ############
+            ~~         #
+            #~~~~##    #
+            ############
+
+Steps = 7
+
+--
+
+water_depth[122110000000]
+            ############
+            ~~~        #
+            #~~~~##    #
+            ############
+
+Steps = 6
+
+--
+
+water_depth[122210000000]
+            ############
+            ~~~~       #
+            #~~~~##    #
+            ############
+
+Steps = 5
+
+--
+
+water_depth[122220000000]
+            ############
+            ~~~~~      #
+            #~~~~##    #
+            ############
+
+Steps = 4
+
+--
+
+water_depth[122221000000]
+            ############
+            ~~~~~~     #
+            #~~~~##    #
+            ############
+
+Steps = 3
+
+--
+
+water_depth[122221100000]
+            ############
+            ~~~~~~~    #
+            #~~~~##    #
+            ############
+
+Steps = 2
+
+--
+
+water_depth[122221110000]
+            ############
+            ~~~~~~~~   #
+            #~~~~##    #
+            ############
+
+Steps = 1
+
+--
+
+water_depth[122221120000]
+            ############
+            ~~~~~~~~   #
+            #~~~~##~   #
+            ############
+
+Steps = 0
+
+--
+
+return the water_depth array with spaces
+
+1 2 2 2 2 1 1 2 0 0 0 0
