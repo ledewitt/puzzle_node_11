@@ -27,9 +27,14 @@ end
 p step
 puts "\n"
 
-p cave[1][1]
-p cave[2][1]
+p cave[0][1]
+p cave[1][0]
 
 cave.each do |row|
   p row
 end
+
+# cave.each do |row|
+#   puts row << row.strip
+# end
+# p cave
