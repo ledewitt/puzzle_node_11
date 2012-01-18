@@ -27,6 +27,9 @@ end
 p step
 puts "\n"
 
+p cave[1][1]
+p cave[2][1]
+
 cave.each do |row|
   p row
 end
