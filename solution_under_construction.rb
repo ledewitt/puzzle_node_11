@@ -28,44 +28,41 @@ end
 p step
 puts
 
-y = 1
-x = 0
+location = {x: 0, y: 1}
 
-if cave[y][x] == "~"
-  puts "yes ~ at #{y} #{x}"
+if cave[location[:y]][location[:x]] == "~"
+  puts "yes ~ at #{location[:x]} #{location[:y]}"
 else
-  puts "no ~ at at #{y} #{x}"
+  puts "no ~ at at #{location[:x]} #{location[:y]}"
   abort "Cave in unexpected format"
 end
-
-current_location = [x,y]
-x_coordinate = 0
-y_coordinate = 1
-
-p current_location
-p current_location[x_coordinate]
-p current_location[y_coordinate]
-
-depth_of_water[current_location[x_coordinate]] = 1           # playing with indices here to make sure they are
-                                # acting as I expect.
-p depth_of_water
-
-x_coordinate =+ 1
-
-p x_coordinate
-
-depth_of_water[current_location[x_coordinate]] = 1
+ 
+p location
+p location[:x]
+p location[:y]
 
 p depth_of_water
 
-def water_flow(x,y,cave)
-  puts "Hello you are calling me!"
-end
+depth_of_water[location[:x]] = 1           # playing with indices here to make sure they are
+                                           # acting as I expect.
+p depth_of_water
 
+location[:x] =+ 1
+ 
+p location[:x]
+ 
+depth_of_water[location[:x]] = 1
+ 
+p depth_of_water
 
-step.times do                # this code is going to access my method a number
-  water_flow(x_coordinate,y_coordinate,cave)                    # of times as passed in from the input file (step)
-end
+# def water_flow(x,y,cave)
+#   puts "Hello you are calling me!"
+# end
+# 
+# 
+# step.times do                # this code is going to access my method a number
+#   water_flow(location[:x],location[:y],cave)                    # of times as passed in from the input file (step)
+# end
 
 # cave.each do |row|
 #   p row
