@@ -31,18 +31,18 @@ y = 0
 x = 1
 
 if cave[y][x] == "~"
-  puts "yes ~ at " + y.to_s + " " + x.to_s
+  puts "yes ~ at #{y} #{x}"
 else
-  puts "no ~ at " + y.to_s + " " + x.to_s
+  puts "no ~ at #{y} #{x}"
 end
 
 y = 1
 x = 0
 
 if cave[y][x] == "~"
-  puts "yes ~ at " + y.to_s + " " + x.to_s
+  puts "yes ~ at #{y} #{x}"
 else
-  puts "no ~ at " + y.to_s + " " + x.to_s
+  puts "no ~ at at #{y} #{x}"
 end
 
 # cave.each do |row|
