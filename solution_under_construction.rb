@@ -59,11 +59,13 @@ depth_of_water[current_location[x_coordinate]] = 1
 p depth_of_water
 
 def water_flow(x,y,cave)
-  
+  puts "Hello you are calling me!"
 end
-# step.times do |j|                # this code is going to access my method a number
-#   puts "#{j}"                    # of times as passed in from the input file (step)
-# end
+
+
+step.times do                # this code is going to access my method a number
+  water_flow(x_coordinate,y_coordinate,cave)                    # of times as passed in from the input file (step)
+end
 
 # cave.each do |row|
 #   p row
