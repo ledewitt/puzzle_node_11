@@ -4,6 +4,7 @@
 step = nil                           # set variables
 cave = [ ]
 depth_of_water = [ ]
+water_column = 0
 
 open("simple_cave.txt") do |f|
   step = f.gets.to_i              # get first line as an int to step variable
@@ -25,8 +26,8 @@ end
 # here will live something to figure out the cave depth
 
 # checking what I have on hand with this output
-p step
-puts
+# p step
+# puts
 
 location = {x: 0, y: 1}
 
@@ -36,31 +37,58 @@ else
   puts "no ~ at at #{location[:x]} #{location[:y]}"
   abort "Cave in unexpected format"
 end
- 
-p location
-p location[:x]
-p location[:y]
 
-p depth_of_water
+# p location
+# p location[:x]
+# p location[:y]
+# 
+# p depth_of_water
+# 
+# depth_of_water[location[:x]] = 1           # playing with indices here to make sure they are
+#                                            # acting as I expect.
+# p depth_of_water
+# 
+# location[:x] =+ 1
+#  
+# p location[:x]
+#  
+# depth_of_water[location[:x]] = 1
+#  
+# p depth_of_water
 
-depth_of_water[location[:x]] = 1           # playing with indices here to make sure they are
-                                           # acting as I expect.
-p depth_of_water
-
-location[:x] =+ 1
- 
-p location[:x]
- 
-depth_of_water[location[:x]] = 1
- 
-p depth_of_water
-
-def water_flow(location,cave)
-  puts "Hello, are you calling me!"
+def find_waters_next_step(location,cave)
+  # p "I'm the function that finds the water flow next step"
+  next_step = [0,0]
+    
+  if cave[location[:y] + 1][location[:x]]  == " "     # Attempt to flow down
+    next_step[1] = 1
+  elsif cave[location[:y]][location[:x] + 1] == " "    # If unable to flow down try to flow right
+      next_step[0] = 1
+  else          #back carraige return to a ~ once we reach a cave wall
+      p "Water has no where to go"     
+  end 
+  next_step
 end
 
-step.times do                # this code is going to access my method a number
-  water_flow(location,cave)                    # of times as passed in from the input file (step)
+def water_flow(location,cave,water_column)
+  # puts "Hello, are you calling me!"
+
+  next_step = find_waters_next_step(location,cave)
+  
+  p next_step
+
+  location[:x] = location[:x] + next_step[0]
+  location[:y] = location[:y] + next_step[1]
+  
+  cave[location[:y]][location[:x]] = "~"
+end
+
+step = 15  # Work with a smaller number of steps
+
+step.times do                                 # this code is going to access my method a number
+  water_flow(location,cave,water_column)      # of times as passed in from the input file (step)
+  p location
+  cave.each { |x| p x }
 end
 
 # cave.each do |row|
@@ -70,4 +98,3 @@ end
 # cave.each do |row|
 #   puts row << row.strip
 # end
-# p cave
