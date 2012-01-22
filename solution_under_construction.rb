@@ -63,10 +63,17 @@ def find_waters_next_step(location,cave)
   if cave[location[:y] + 1][location[:x]]  == " "     # Attempt to flow down
     next_step[1] = 1
   elsif cave[location[:y]][location[:x] + 1] == " "    # If unable to flow down try to flow right
-      next_step[0] = 1
+    next_step[0] = 1
   else          #back carraige return to a ~ once we reach a cave wall
-      p "Water has no where to go"     
-  end 
+    p "Water has no where to go"
+    next_step[1] = -1                          # go up one level in the cave
+    
+    # Breaking some ruby rules right here to go backwards in the cave to find a blank space to fill
+    
+    while cave[location[:y] + next_step[1]][location[:x] + next_step[0] - 1] == " "
+      next_step[0] += -1
+    end
+  end
   next_step
 end
 
@@ -83,7 +90,7 @@ def water_flow(location,cave,water_column)
   cave[location[:y]][location[:x]] = "~"
 end
 
-step = 15  # Work with a smaller number of steps
+# step = 15  # Work with a smaller number of steps
 
 step.times do                                 # this code is going to access my method a number
   water_flow(location,cave,water_column)      # of times as passed in from the input file (step)
