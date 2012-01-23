@@ -16,14 +16,14 @@ open("simple_cave.txt") do |f|
     cave << line.strip.split("")  # load each "line" into cave
                                   # "strip "out the newlines
                                   # "split" splits out every line into
-                                  # individual strings for each space
+                                  # individual strings (charaters) for each space
   end
   
 end
 
 # here will live something to figure out the cave depth
 
-# checking my output
+# checking what I have on hand with this output
 p step
 puts "\n"
 

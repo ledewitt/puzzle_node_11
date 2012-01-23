@@ -88,6 +88,7 @@ def find_waters_next_step(location,cave)
       next_step[0] += -1
     end
   end
+  
   next_step
 end
 
@@ -107,7 +108,7 @@ def water_flow(location,cave,water_column,depth_of_water)
   
 end
 
-step = 45  # Work with a smaller number of steps
+# step = 45  # Work with a smaller number of steps
 
 step.times do                                 # this code is going to access my method a number
   water_flow(location,cave,water_column,depth_of_water)      # of times as passed in from the input file (step)
@@ -115,6 +116,16 @@ step.times do                                 # this code is going to access my 
   cave.each { |x| p x }
   p depth_of_water
 end
+
+p depth_of_water.inject{|sum,x| sum + x }
+
+# Edge case of falling water
+
+if cave[location[:y] + 1][location[:x]]  == " "
+  depth_of_water[location[:x]] = "~"
+end
+
+p depth_of_water
 
 # cave.each do |row|
 #   p row
