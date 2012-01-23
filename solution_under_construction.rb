@@ -38,7 +38,9 @@ else
   abort "Cave in unexpected format"
 end
 
-depth_of_water[location[:x]] = depth_of_water[location[:x]]
+# depth_of_water[location[:x]] = depth_of_water[location[:x]]
+
+step += -1      # Already have a water unit in the cave
 
 length_of_cave = cave[0].count
 

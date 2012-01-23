@@ -40,7 +40,7 @@ cave = [ ]
 depth_of_water = [ ]
 water_column = 0
 
-open("simple_cave.txt") do |f|
+open("complex_cave.txt") do |f|
   step = f.gets.to_i              # get first line as an int to step variable
   f.gets                                
   f.each do |line|                # process each line of the cave   
@@ -57,6 +57,8 @@ else
   abort "Cave in unexpected format"
 end
 
+step += -1      # Already have a water unit in the cave
+
 length_of_cave = cave[0].count                  # Populate array to track depth of water
 depth_of_water.fill( 0 , 0..length_of_cave)
 depth_of_water[location[:x]] = 1
@@ -70,10 +72,6 @@ step.times do                                                # this code is goin
   # p depth_of_water
 end
 
-# Uncomment below code to see the sum of the water depth in cave
-# NOTE currently this does not equal the number of steps because of
-# the starting ~ in cave so my answer doesn't match the example cave
-
 # p depth_of_water.inject{|sum,x| sum + x }
 
 # Edge case of falling water
@@ -83,4 +81,4 @@ if cave[location[:y] + 1][location[:x]]  == " "
 end
 
 # p cave.each { |x| p x }
-p depth_of_water
+puts depth_of_water.join(" ")
