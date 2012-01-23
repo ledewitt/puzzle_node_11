@@ -26,7 +26,7 @@ end
 # here will live something to figure out the cave depth
 
 # checking what I have on hand with this output
-# p step
+p step
 # puts
 
 location = {x: 0, y: 1}
@@ -37,6 +37,20 @@ else
   puts "no ~ at at #{location[:x]} #{location[:y]}"
   abort "Cave in unexpected format"
 end
+
+depth_of_water[location[:x]] = depth_of_water[location[:x]]
+
+length_of_cave = cave[0].count
+
+p length_of_cave
+
+depth_of_water.fill( 0 , 0..length_of_cave)
+
+p depth_of_water
+
+depth_of_water[location[:x]] = 1
+
+p depth_of_water
 
 # p location
 # p location[:x]
@@ -77,7 +91,7 @@ def find_waters_next_step(location,cave)
   next_step
 end
 
-def water_flow(location,cave,water_column)
+def water_flow(location,cave,water_column,depth_of_water)
   # puts "Hello, are you calling me!"
 
   next_step = find_waters_next_step(location,cave)
@@ -88,14 +102,18 @@ def water_flow(location,cave,water_column)
   location[:y] = location[:y] + next_step[1]
   
   cave[location[:y]][location[:x]] = "~"
+  
+  depth_of_water[location[:x]] += 1
+  
 end
 
-# step = 15  # Work with a smaller number of steps
+step = 45  # Work with a smaller number of steps
 
 step.times do                                 # this code is going to access my method a number
-  water_flow(location,cave,water_column)      # of times as passed in from the input file (step)
+  water_flow(location,cave,water_column,depth_of_water)      # of times as passed in from the input file (step)
   p location
   cave.each { |x| p x }
+  p depth_of_water
 end
 
 # cave.each do |row|
