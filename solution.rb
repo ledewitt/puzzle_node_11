@@ -82,3 +82,7 @@ end
 
 # p cave.each { |x| p x }
 puts depth_of_water.join(" ")
+
+File.open('solution_output.txt', 'w') do |x|
+  x.puts depth_of_water.join(" ")
+end
